@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<!--
+  Project : Sustainable Living Tracker (EcoTrack)
+  Course  : CSE326 - Internet Programming  (CA1)
+  Stack   : HTML5 + CSS3 + Vanilla JavaScript (ES6) only
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EcoTrack - Sustainable Living Tracker. Calculate your carbon footprint and get personalised eco tips." />
+  <title>EcoTrack | Sustainable Living Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- =====================  1. HEADER + RESPONSIVE NAVBAR  ===================== -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a href="#home" class="logo" aria-label="EcoTrack home">🌿 Eco<span>Track</span></a>
+
+      <!-- Hamburger button (visible only on mobile) -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav aria-label="Main navigation">
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#calculator" class="nav-link">Calculator</a></li>
+          <li><a href="#history" class="nav-link">My History</a></li>
+          <li><a href="#tips" class="nav-link">Eco Tips</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =====================  2. HERO SECTION  ===================== -->
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <p class="hero-badge">🌍 Small habits. Big impact.</p>
+        <h1>Track Your Carbon Footprint</h1>
+        <p class="hero-sub">
+          Enter your daily and monthly habits, see how much CO₂ you emit,
+          and get simple, personalised tips to live a more sustainable life.
+        </p>
+        <a href="#calculator" class="btn btn-light btn-lg">Calculate Now</a>
+
+        <!-- Animated stats counters (values set in script.js via data-target) -->
+        <div class="stats" role="list">
+          <article class="stat" role="listitem">
+            <span class="stat-icon">🌱</span>
+            <span class="stat-number" data-target="12500" data-suffix=" kg">0</span>
+            <span class="stat-label">CO₂ Saved</span>
+          </article>
+          <article class="stat" role="listitem">
+            <span class="stat-icon">👥</span>
+            <span class="stat-number" data-target="1200" data-suffix="+">0</span>
+            <span class="stat-label">Users</span>
+          </article>
+          <article class="stat" role="listitem">
+            <span class="stat-icon">💡</span>
+            <span class="stat-number" data-target="50" data-suffix="+">0</span>
+            <span class="stat-label">Eco Tips</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================  3. CALCULATOR FORM  ===================== -->
+    <section class="section" id="calculator">
+      <div class="container">
+        <header class="section-head">
+          <h2>🧮 Carbon Footprint Calculator</h2>
+          <p>Fill in your monthly habits. All fields are validated before calculation.</p>
+        </header>
+
+        <form id="calcForm" class="card form-card" novalidate>
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label for="name">👤 Your Name</label>
+              <input type="text" id="name" name="name" placeholder="e.g. Aarav Sharma" autocomplete="name" />
+              <small class="error" id="name-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="electricity">⚡ Electricity usage per month (kWh)</label>
+              <input type="number" id="electricity" name="electricity" placeholder="e.g. 150" min="0" step="any" />
+              <small class="error" id="electricity-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="lpg">🔥 LPG cylinders per month</label>
+              <input type="number" id="lpg" name="lpg" placeholder="e.g. 1" min="0" step="any" />
+              <small class="error" id="lpg-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="water">💧 Water usage per month (litres)</label>
+              <input type="number" id="water" name="water" placeholder="e.g. 12000" min="0" step="any" />
+              <small class="error" id="water-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="fuelType">⛽ Fuel type (bike / car)</label>
+              <select id="fuelType" name="fuelType">
+                <option value="petrol">Petrol</option>
+                <option value="diesel">Diesel</option>
+              </select>
+              <small class="error" id="fuelType-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="fuel">🚗 Petrol/Diesel per month (litres)</label>
+              <input type="number" id="fuel" name="fuel" placeholder="e.g. 20" min="0" step="any" />
+              <small class="error" id="fuel-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="transit">🚌 Bus/Train distance per month (km)</label>
+              <input type="number" id="transit" name="transit" placeholder="e.g. 100" min="0" step="any" />
+              <small class="error" id="transit-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="flights">✈️ Flights per year</label>
+              <input type="number" id="flights" name="flights" placeholder="e.g. 2" min="0" step="1" />
+              <small class="error" id="flights-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="diet">🥗 Diet type</label>
+              <select id="diet" name="diet">
+                <option value="">-- Select diet --</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="nonveg">Non-Veg</option>
+                <option value="vegan">Vegan</option>
+              </select>
+              <small class="error" id="diet-error"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="waste">🗑️ Waste generated per week (kg)</label>
+              <input type="number" id="waste" name="waste" placeholder="e.g. 5" min="0" step="any" />
+              <small class="error" id="waste-error"></small>
+            </div>
+          </div>
+
+          <!-- Live calculation preview: updates on every keystroke -->
+          <div class="live-box" aria-live="polite">
+            <span>⚡ Live estimate:</span>
+            <strong id="liveValue">0 kg CO₂ / year</strong>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-lg">Calculate My Footprint</button>
+            <button type="reset" class="btn btn-outline btn-lg" id="resetBtn">Reset</button>
+          </div>
+          <p class="hint">Note: LPG, fuel, bus/train and flights may be 0 if you don't use them. Other numeric fields must be greater than 0.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- =====================  4. RESULT DASHBOARD  ===================== -->
+    <section class="section section-alt hidden" id="results" aria-live="polite">
+      <div class="container">
+        <header class="section-head">
+          <h2>📊 Your Result Dashboard</h2>
+          <p id="resultGreeting">Here is your carbon footprint summary.</p>
+        </header>
+
+        <!-- Summary cards -->
+        <div class="summary-grid">
+          <article class="card summary-card">
+            <h3>Total CO₂ per Year</h3>
+            <p class="big"><span id="totalKg">0</span> <small>kg</small></p>
+            <p class="sub"><span id="totalTons">0</span> tons</p>
+          </article>
+          <article class="card summary-card">
+            <h3>Total CO₂ per Month</h3>
+            <p class="big"><span id="monthlyKg">0</span> <small>kg</small></p>
+            <p class="sub">Yearly total ÷ 12</p>
+          </article>
+          <article class="card summary-card rating-card">
+            <h3>Your Rating</h3>
+            <p><span class="badge" id="ratingBadge">-</span></p>
+            <p class="sub" id="ratingText">Compared with Indian average (2 tons/person/year)</p>
+          </article>
+        </div>
+
+        <div class="result-grid">
+          <!-- Category breakdown with animated progress bars -->
+          <article class="card">
+            <h3>Category-wise Breakdown</h3>
+            <div id="breakdown" class="breakdown"></div>
+          </article>
+
+          <!-- Canvas bar chart -->
+          <article class="card">
+            <h3>Emission Bar Chart (kg CO₂ / year)</h3>
+            <div class="chart-wrap">
+              <canvas id="emissionChart" aria-label="Bar chart of category-wise CO2 emission" role="img"></canvas>
+            </div>
+          </article>
+        </div>
+
+        <!-- Personalised tips -->
+        <article class="card tips-result">
+          <h3>🌿 Personalised Eco Tips <span class="muted" id="topCategory"></span></h3>
+          <ul id="personalTips" class="personal-tips"></ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- =====================  5. MY HISTORY  ===================== -->
+    <section class="section" id="history">
+      <div class="container">
+        <header class="section-head">
+          <h2>🕘 My History</h2>
+          <p>Every calculation is saved in your browser (localStorage).</p>
+        </header>
+
+        <div class="card">
+          <div class="table-toolbar">
+            <span id="historyCount" class="muted">0 records</span>
+            <button type="button" class="btn btn-danger" id="clearHistory">Clear All</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Total CO₂</th>
+                  <th>Rating</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="historyBody"></tbody>
+            </table>
+          </div>
+          <p id="historyEmpty" class="empty hidden">No history yet. Use the calculator to add your first record. 🌱</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================  6. SET YOUR GOAL  ===================== -->
+    <section class="section section-alt" id="goal">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2>🎯 Set Your Goal</h2>
+          <p>Set a monthly CO₂ target and compare it with your latest calculation.</p>
+        </header>
+
+        <div class="card">
+          <form id="goalForm" novalidate class="goal-form">
+            <div class="form-group">
+              <label for="goalInput">Monthly CO₂ goal (kg)</label>
+              <input type="number" id="goalInput" placeholder="e.g. 150" min="1" step="any" />
+              <small class="error" id="goalInput-error"></small>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Goal</button>
+          </form>
+
+          <div class="goal-progress">
+            <div class="goal-numbers">
+              <span>Goal: <strong id="goalValue">Not set</strong></span>
+              <span>Current: <strong id="goalCurrent">No data</strong></span>
+            </div>
+            <div class="progress-track big-track">
+              <div class="progress-fill" id="goalBar" style="width:0%"></div>
+            </div>
+            <p id="goalMessage" class="goal-message">Set a goal and calculate your footprint to see progress.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================  7. ECO TIPS  ===================== -->
+    <section class="section" id="tips">
+      <div class="container">
+        <header class="section-head">
+          <h2>💡 Eco Tips</h2>
+          <p>Filter by category, search by keyword and click a card for details.</p>
+        </header>
+
+        <div class="tips-controls">
+          <div class="filters" role="group" aria-label="Filter tips by category">
+            <button type="button" class="filter-btn active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="energy">⚡ Energy</button>
+            <button type="button" class="filter-btn" data-filter="water">💧 Water</button>
+            <button type="button" class="filter-btn" data-filter="transport">🚌 Transport</button>
+            <button type="button" class="filter-btn" data-filter="waste">♻️ Waste</button>
+          </div>
+          <label for="tipSearch" class="sr-only">Search tips</label>
+          <input type="search" id="tipSearch" class="search" placeholder="🔍 Search tips..." />
+        </div>
+
+        <div class="tips-grid" id="tipsGrid"></div>
+        <p id="tipsEmpty" class="empty hidden">No tips match your search.</p>
+      </div>
+    </section>
+
+    <!-- =====================  8. DAILY HABIT CHECKLIST  ===================== -->
+    <section class="section section-alt" id="habits">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2>✅ Daily Habit Checklist</h2>
+          <p>Tick the eco habits you completed today. Progress is saved automatically.</p>
+        </header>
+
+        <div class="card">
+          <div class="habit-top">
+            <strong id="habitCount">0/8 habits done</strong>
+            <button type="button" class="btn btn-outline btn-sm" id="habitReset">Reset Today</button>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="habitBar" style="width:0%"></div>
+          </div>
+          <p class="reward" id="habitReward">Start ticking to earn rewards! 🌱</p>
+          <form id="habitForm">
+            <fieldset class="habit-list" id="habitList">
+              <legend class="sr-only">Daily eco habits</legend>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================  9. CONTACT / FEEDBACK  ===================== -->
+    <section class="section" id="contact">
+      <div class="container narrow">
+        <header class="section-head">
+          <h2>✉️ Contact &amp; Feedback</h2>
+          <p>Have a suggestion? We would love to hear from you.</p>
+        </header>
+
+        <form id="contactForm" class="card form-card" novalidate>
+          <div class="form-group">
+            <label for="cName">Name</label>
+            <input type="text" id="cName" placeholder="Your name" />
+            <small class="error" id="cName-error"></small>
+          </div>
+          <div class="form-group">
+            <label for="cEmail">Email</label>
+            <input type="email" id="cEmail" placeholder="you@example.com" />
+            <small class="error" id="cEmail-error"></small>
+          </div>
+          <div class="form-group">
+            <label for="cMessage">Message</label>
+            <textarea id="cMessage" rows="5" placeholder="Write your feedback (min 10 characters)"></textarea>
+            <small class="error" id="cMessage-error"></small>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg">Send Feedback</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- =====================  10. FOOTER  ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <section>
+        <h3>🌿 EcoTrack</h3>
+        <p>Sustainable Living Tracker – a CA1 project for Internet Programming.</p>
+      </section>
+      <section>
+        <h3>👨‍🎓 Team Members</h3>
+        <ul>
+          <li>Student 1 – Name / Reg. No.</li>
+          <li>Student 2 – Name / Reg. No.</li>
+          <li>Student 3 – Name / Reg. No.</li>
+        </ul>
+      </section>
+      <section>
+        <h3>📘 Course</h3>
+        <p>Course Code: <strong>CSE326</strong></p>
+        <p>Internet Programming</p>
+      </section>
+    </div>
+    <p class="copyright">&copy; 2026 EcoTrack – CSE326. All rights reserved.</p>
+  </footer>
+
+  <!-- Back to top button (shown using window.scroll event) -->
+  <button id="backToTop" class="back-top" aria-label="Back to top" title="Back to top">↑</button>
+
+  <!-- Toast container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Tip details modal -->
+  <div class="modal-overlay hidden" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close dialog">&times;</button>
+      <div class="modal-icon" id="modalIcon"></div>
+      <h3 id="modalTitle"></h3>
+      <span class="badge badge-cat" id="modalCat"></span>
+      <p id="modalText"></p>
+      <ul id="modalList"></ul>
+      <p class="modal-impact" id="modalImpact"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
