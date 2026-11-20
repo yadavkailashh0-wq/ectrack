@@ -78,9 +78,9 @@ EcoTrack lets a user enter their monthly habits (electricity, LPG, water, fuel, 
 
 | Student | Name | Reg. No. |
 |---------|------|----------|
-| 1 | _Your name here_ | _Reg. No._ |
-| 2 | _Your name here_ | _Reg. No._ |
-| 3 | _Your name here_ | _Reg. No._ |
+| 1 | _Sujan s_ | _12601716_ |
+| 2 | _Kailash chandra_ | _12606843_ |
+| 3 | _Bhavish s_ | _12603608_ |
 
 ---
 &copy; 2026 EcoTrack – CSE326
